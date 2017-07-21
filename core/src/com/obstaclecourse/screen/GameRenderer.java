@@ -31,7 +31,7 @@ import com.obstaclecourse.util.debug.DebugCameraController;
 /**
  * Created by platon on 14/07/2017.
  */
-
+@Deprecated
 public class GameRenderer extends InputAdapter implements Disposable{
 
     private static final Logger LOG = new Logger(GameRenderer.class.getName(), Logger.DEBUG);

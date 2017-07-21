@@ -1,22 +1,36 @@
 package com.obstaclecourse.screen.game;
 
+import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Logger;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.obstaclecourse.ObstacleCourseGame;
-import com.obstaclecourse.screen.GameController;
-import com.obstaclecourse.screen.GameRenderer;
-import com.obstaclecourse.screen.menu.MenuScreen;
+import com.obstaclecourse.common.EntityFactory;
+import com.obstaclecourse.config.GameConfig;
+import com.obstaclecourse.system.debug.DebugCameraSystem;
+import com.obstaclecourse.system.debug.DebugRenderSystem;
+import com.obstaclecourse.system.debug.GridRenderSystem;
+import com.obstaclecourse.util.GdxUtils;
 
 /**
  * Created by platon on 14/07/2017.
  */
-
 public class GameScreen implements Screen {
 
-    private GameController controller;
-    private GameRenderer renderer;
+    private static final Logger LOG = new Logger(GameScreen.class.getName(), Logger.DEBUG);
+
     private final ObstacleCourseGame game;
     private final AssetManager assetManager;
+
+    private Viewport viewport;
+    private ShapeRenderer renderer;
+    private PooledEngine engine;
+    private OrthographicCamera camera;
+    private EntityFactory factory;
 
     public GameScreen(ObstacleCourseGame obstacleCourseGame) {
         this.game = obstacleCourseGame;
@@ -25,23 +39,29 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        controller = new GameController(game);
-        renderer = new GameRenderer(controller, assetManager, game.getSpriteBatch());
+        camera = new OrthographicCamera();
+        viewport = new FitViewport(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT, camera);
+        renderer = new ShapeRenderer();
+        engine = new PooledEngine();
+
+        factory = new EntityFactory(engine);
+
+        engine.addSystem(new GridRenderSystem(viewport, renderer));
+        engine.addSystem(new DebugCameraSystem(camera, GameConfig.WORLD_CENTER_X, GameConfig.WORLD_CENTER_Y));
+        engine.addSystem(new DebugRenderSystem(viewport, renderer));
+        factory.addPlayer();
     }
 
 
     @Override
     public void render(float delta) {
-        renderer.render(delta);
-
-        if (controller.isGameOver()) {
-            game.setScreen(new MenuScreen(game));
-        }
+        GdxUtils.clearScreen();
+        engine.update(delta);
     }
 
     @Override
     public void resize(int width, int height) {
-        renderer.resize(width, height);
+        viewport.update(width, height);
     }
 
     @Override

@@ -18,7 +18,7 @@ import com.obstaclecourse.entity.Player;
 /**
  * Contains all the logic of our games - manages objects, keeps score, state, check collisions etc.
  */
-
+@Deprecated
 public class    GameController {
 
     /* Constants */
