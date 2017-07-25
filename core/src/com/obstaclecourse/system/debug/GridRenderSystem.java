@@ -12,8 +12,6 @@ import com.obstaclecourse.util.ViewportUtils;
 
 public class GridRenderSystem extends EntitySystem {
 
-    private static final Logger LOG = new Logger(GridRenderSystem.class.getName(), Logger.DEBUG);
-
     private final Viewport viewport;
     private final ShapeRenderer renderer;
 

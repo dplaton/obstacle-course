@@ -11,8 +11,6 @@ import com.obstaclecourse.util.debug.DebugCameraController;
 
 public class DebugCameraSystem extends EntitySystem {
 
-    private static final Logger LOG = new Logger(DebugCameraSystem.class.getName(), Logger.DEBUG);
-
     private static final DebugCameraController DEBUG_CAMERA_CONTROLLER = new DebugCameraController();
 
     private final OrthographicCamera camera;

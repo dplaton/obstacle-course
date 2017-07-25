@@ -3,6 +3,7 @@ package com.obstaclecourse.common;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.obstaclecourse.component.BoundsComponent;
+import com.obstaclecourse.component.CleanupComponent;
 import com.obstaclecourse.component.MovementComponent;
 import com.obstaclecourse.component.PlayerComponent;
 import com.obstaclecourse.component.PositionComponent;
@@ -41,8 +42,6 @@ public class EntityFactory {
         position.x = x;
         position.y = y;
 
-
-
         Entity entity = engine.createEntity();
         entity.add(component);
         entity.add(movement);
@@ -50,5 +49,29 @@ public class EntityFactory {
         entity.add(position);
         entity.add(worldWrap);
         engine.addEntity(entity);
+    }
+
+    public void addObstacle(float x, float y) {
+        BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
+        bounds.bounds.x = x;
+        bounds.bounds.y = y;
+        bounds.bounds.radius = GameConfig.OBSTACLE_BOUNDS_RADIUS;
+
+        MovementComponent movement = engine.createComponent(MovementComponent.class);
+        movement.xSpeed = -GameManager.getInstance().getDifficultyLevel().getObstacleSpeed();
+
+        PositionComponent position = engine.createComponent(PositionComponent.class);
+        position.x = x;
+        position.y = y;
+
+        CleanupComponent cleanup = engine.createComponent(CleanupComponent.class);
+
+        Entity obstacle = engine.createEntity();
+        obstacle.add(bounds);
+        obstacle.add(movement);
+        obstacle.add(position);
+        obstacle.add(cleanup);
+
+        engine.addEntity(obstacle);
     }
 }

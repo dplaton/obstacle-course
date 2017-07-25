@@ -15,8 +15,6 @@ import com.obstaclecourse.component.BoundsComponent;
  */
 
 public class DebugRenderSystem extends IteratingSystem {
-    private static final Logger LOG = new Logger(DebugRenderSystem.class.getName(), Logger.DEBUG);
-
     private static final Family FAMILY = Family.all(BoundsComponent.class).get();
 
     private final Viewport viewport;
