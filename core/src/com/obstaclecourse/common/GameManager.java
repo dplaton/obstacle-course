@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.obstaclecourse.ObstacleCourseGame;
 import com.obstaclecourse.config.DifficultyLevel;
+import com.obstaclecourse.config.GameConfig;
 
 /**
  * Created by platon on 18/07/2017.
@@ -18,6 +19,8 @@ public class GameManager {
 
     private int highScore;
     private DifficultyLevel difficultyLevel;
+    private int lives = GameConfig.LIVES_START;
+    private int score;
 
     private Preferences PREFS;
 
@@ -50,9 +53,19 @@ public class GameManager {
             this.difficultyLevel = difficultyLevel;
         }
     }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
     public static GameManager getInstance() {
         return INSTANCE;
     }
+
 
 
 }
