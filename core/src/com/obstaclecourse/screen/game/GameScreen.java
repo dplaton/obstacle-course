@@ -3,6 +3,7 @@ package com.obstaclecourse.screen.game;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -12,9 +13,12 @@ import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.obstaclecourse.ObstacleCourseGame;
+import com.obstaclecourse.assets.AssetDescriptors;
 import com.obstaclecourse.assets.AssetPaths;
 import com.obstaclecourse.common.EntityFactory;
+import com.obstaclecourse.common.GameManager;
 import com.obstaclecourse.config.GameConfig;
+import com.obstaclecourse.screen.menu.MenuScreen;
 import com.obstaclecourse.system.BoundsSystem;
 import com.obstaclecourse.system.CleanupSystem;
 import com.obstaclecourse.system.HudRenderSystem;
@@ -22,6 +26,7 @@ import com.obstaclecourse.system.MovementSystem;
 import com.obstaclecourse.system.ObstacleSpawnSystem;
 import com.obstaclecourse.system.PlayerSystem;
 import com.obstaclecourse.system.WorldWrapSystem;
+import com.obstaclecourse.system.collision.CollisionListener;
 import com.obstaclecourse.system.collision.CollisionSystem;
 import com.obstaclecourse.system.debug.DebugCameraSystem;
 import com.obstaclecourse.system.debug.DebugRenderSystem;
@@ -44,6 +49,8 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private EntityFactory factory;
     private Viewport hudViewport;
+    private Sound hit;
+    private boolean reset;
 
     public GameScreen(ObstacleCourseGame obstacleCourseGame) {
         this.game = obstacleCourseGame;
@@ -60,7 +67,20 @@ public class GameScreen implements Screen {
 
         hudViewport = new FitViewport(GameConfig.HUD_WIDTH, GameConfig.HUD_HEIGHT);
         BitmapFont font = GdxUtils.generateStandardFont(AssetPaths.UI_FONT);
-
+        hit = assetManager.get(AssetDescriptors.PICKUP_SOUND);
+        CollisionListener listener = new CollisionListener() {
+            @Override
+            public void hitObstacle() {
+                GameManager.getInstance().decrementLives();
+                hit.play();
+                if (GameManager.getInstance().isGameOver()) {
+                    GameManager.getInstance().updateHighScore();
+                } else {
+                    engine.removeAllEntities();
+                    reset = true;
+                }
+            }
+        };
 
         // the order in which we add the systems matter!
         engine.addSystem(new DebugCameraSystem(camera, GameConfig.WORLD_CENTER_X, GameConfig.WORLD_CENTER_Y));
@@ -70,7 +90,7 @@ public class GameScreen implements Screen {
         engine.addSystem(new WorldWrapSystem(viewport));
         engine.addSystem(new BoundsSystem());
         engine.addSystem(new ObstacleSpawnSystem(factory));
-        engine.addSystem(new CollisionSystem());
+        engine.addSystem(new CollisionSystem(listener));
         engine.addSystem(new CleanupSystem());
 
         engine.addSystem(new GridRenderSystem(viewport, renderer));
@@ -78,7 +98,7 @@ public class GameScreen implements Screen {
 
         engine.addSystem(new HudRenderSystem(hudViewport, game.getSpriteBatch(), font));
 
-        factory.addPlayer();
+        addEntities();
     }
 
 
@@ -86,6 +106,18 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         GdxUtils.clearScreen();
         engine.update(delta);
+        if (reset) {
+            reset = !reset;
+            addEntities();
+        }
+
+        if (GameManager.getInstance().isGameOver()) {
+            game.setScreen(new MenuScreen(game));
+        }
+    }
+
+    private void addEntities() {
+        factory.addPlayer();
     }
 
     @Override
@@ -113,4 +145,6 @@ public class GameScreen implements Screen {
     public void dispose() {
         renderer.dispose();
     }
+
+
 }

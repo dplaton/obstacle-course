@@ -32,7 +32,10 @@ public class CollisionSystem extends EntitySystem {
             ObstacleComponent.class,
             BoundsComponent.class).get();
 
-    public CollisionSystem() {
+    private final CollisionListener listener;
+
+    public CollisionSystem(CollisionListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -52,6 +55,7 @@ public class CollisionSystem extends EntitySystem {
                 if (checkCollision(playerEntity, obstacleEntity)) {
                     obstacleComponent.hit = true;
                     LOG.debug("Collision detected!");
+                    listener.hitObstacle();
                 }
             }
         }

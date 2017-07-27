@@ -87,7 +87,7 @@ public class    GameController {
             lives--;
             if (isGameOver()) {
                 LOG.debug("Game over");
-                GameManager.getInstance().updateHighScore(score);
+               // GameManager.getInstance().updateHighScore(score);
             } else {
                 restartGame();
             }

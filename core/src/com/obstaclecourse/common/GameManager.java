@@ -35,9 +35,9 @@ public class GameManager {
         return String.valueOf(highScore);
     }
 
-    public void updateHighScore(int score) {
-        if (score > highScore) {
-            this.highScore = score;
+    public void updateHighScore() {
+        if (this.score > this.highScore) {
+            this.highScore = this.score;
             PREFS.putInteger(HIGHSCORE_KEY, score);
             PREFS.flush();
         }
@@ -60,6 +60,14 @@ public class GameManager {
 
     public int getScore() {
         return score;
+    }
+
+    public void decrementLives() {
+        this.lives--;
+    }
+
+    public boolean isGameOver() {
+        return lives <= 0;
     }
 
     public static GameManager getInstance() {
