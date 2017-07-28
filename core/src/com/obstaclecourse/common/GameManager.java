@@ -70,6 +70,15 @@ public class GameManager {
         return lives <= 0;
     }
 
+    public void reset() {
+        this.score = 0;
+        this.lives = GameConfig.LIVES_START;
+    }
+
+    public void updateScore(int amount) {
+        score += amount;
+    }
+
     public static GameManager getInstance() {
         return INSTANCE;
     }

@@ -25,6 +25,7 @@ import com.obstaclecourse.system.HudRenderSystem;
 import com.obstaclecourse.system.MovementSystem;
 import com.obstaclecourse.system.ObstacleSpawnSystem;
 import com.obstaclecourse.system.PlayerSystem;
+import com.obstaclecourse.system.ScoreSystem;
 import com.obstaclecourse.system.WorldWrapSystem;
 import com.obstaclecourse.system.collision.CollisionListener;
 import com.obstaclecourse.system.collision.CollisionSystem;
@@ -97,7 +98,7 @@ public class GameScreen implements Screen {
         engine.addSystem(new DebugRenderSystem(viewport, renderer));
 
         engine.addSystem(new HudRenderSystem(hudViewport, game.getSpriteBatch(), font));
-
+        engine.addSystem(new ScoreSystem());
         addEntities();
     }
 
@@ -112,6 +113,7 @@ public class GameScreen implements Screen {
         }
 
         if (GameManager.getInstance().isGameOver()) {
+            GameManager.getInstance().reset();
             game.setScreen(new MenuScreen(game));
         }
     }
