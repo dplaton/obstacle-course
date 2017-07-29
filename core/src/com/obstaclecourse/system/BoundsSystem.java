@@ -13,7 +13,7 @@ import com.obstaclecourse.component.PositionComponent;
 
 public class BoundsSystem extends IteratingSystem {
 
-    private static final Family FAMILY = Family.all(PositionComponent.class).get();
+    private static final Family FAMILY = Family.all(PositionComponent.class, BoundsComponent.class).get();
 
     public BoundsSystem() {
         super(FAMILY);
