@@ -2,6 +2,7 @@ package com.obstaclecourse.common;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.obstaclecourse.assets.AssetDescriptors;
@@ -37,7 +38,7 @@ public class EntityFactory {
     }
 
     public void addPlayer() {
-        float y = GameConfig.WORLD_HEIGHT / 2;
+        float y = (GameConfig.WORLD_HEIGHT - GameConfig.PLAYER_SIZE) / 2;
         float x = GameConfig.PLAYER_SIZE;
 
         BoundsComponent component = engine.createComponent(BoundsComponent.class);

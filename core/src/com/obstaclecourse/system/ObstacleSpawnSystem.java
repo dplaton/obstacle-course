@@ -22,7 +22,7 @@ public class ObstacleSpawnSystem extends IntervalSystem {
     @Override
     protected void updateInterval() {
         float min = 0;
-        float max = GameConfig.WORLD_HEIGHT;
+        float max = GameConfig.WORLD_HEIGHT - GameConfig.OBSTACLE_SIZE;
 
         float obstacleY = MathUtils.random(min, max);
         float obstacleX = GameConfig. WORLD_WIDTH;

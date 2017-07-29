@@ -41,6 +41,7 @@ import com.obstaclecourse.util.GdxUtils;
 public class GameScreen implements Screen {
 
     private static final Logger LOG = new Logger(GameScreen.class.getName(), Logger.DEBUG);
+    private static final boolean DEBUG = false;
 
     private final ObstacleCourseGame game;
     private final AssetManager assetManager;
@@ -53,6 +54,7 @@ public class GameScreen implements Screen {
     private Viewport hudViewport;
     private Sound hit;
     private boolean reset;
+
 
     public GameScreen(ObstacleCourseGame obstacleCourseGame) {
         this.game = obstacleCourseGame;
@@ -85,8 +87,6 @@ public class GameScreen implements Screen {
         };
 
         // the order in which we add the systems matter!
-        engine.addSystem(new DebugCameraSystem(camera, GameConfig.WORLD_CENTER_X, GameConfig.WORLD_CENTER_Y));
-
         engine.addSystem(new PlayerSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new WorldWrapSystem(viewport));
@@ -96,9 +96,11 @@ public class GameScreen implements Screen {
         engine.addSystem(new CleanupSystem());
 
         engine.addSystem(new RenderSystem(viewport, game.getSpriteBatch()));
-        engine.addSystem(new GridRenderSystem(viewport, renderer));
-        engine.addSystem(new DebugRenderSystem(viewport, renderer));
-
+        if (DEBUG) {
+            engine.addSystem(new DebugCameraSystem(camera, GameConfig.WORLD_CENTER_X, GameConfig.WORLD_CENTER_Y));
+            engine.addSystem(new GridRenderSystem(viewport, renderer));
+            engine.addSystem(new DebugRenderSystem(viewport, renderer));
+        }
         engine.addSystem(new HudRenderSystem(hudViewport, game.getSpriteBatch(), font));
         engine.addSystem(new ScoreSystem());
         addEntities();
