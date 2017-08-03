@@ -1,13 +1,14 @@
 package com.obstaclecourse.screen.game;
 
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntityListener;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -17,11 +18,13 @@ import com.obstaclecourse.assets.AssetDescriptors;
 import com.obstaclecourse.assets.AssetPaths;
 import com.obstaclecourse.common.EntityFactory;
 import com.obstaclecourse.common.GameManager;
+import com.obstaclecourse.component.PickupComponent;
 import com.obstaclecourse.config.GameConfig;
 import com.obstaclecourse.screen.menu.MenuScreen;
 import com.obstaclecourse.system.BoundsSystem;
 import com.obstaclecourse.system.CleanupSystem;
 import com.obstaclecourse.system.HudRenderSystem;
+import com.obstaclecourse.system.PickupSpawnSystem;
 import com.obstaclecourse.system.MovementSystem;
 import com.obstaclecourse.system.ObstacleSpawnSystem;
 import com.obstaclecourse.system.PlayerSystem;
@@ -75,6 +78,9 @@ public class GameScreen implements Screen {
         CollisionListener listener = new CollisionListener() {
             @Override
             public void hitObstacle() {
+                if (DEBUG) {
+                    return;
+                }
                 GameManager.getInstance().decrementLives();
                 hit.play();
                 if (GameManager.getInstance().isGameOver()) {
@@ -84,7 +90,29 @@ public class GameScreen implements Screen {
                     reset = true;
                 }
             }
+
+            @Override
+            public void collect(Entity entity) {
+                PickupComponent pickup = entity.getComponent(PickupComponent.class);
+                if (pickup.pickupType.isLife()) {
+                    GameManager.getInstance().incrementLives();
+                }
+                engine.removeEntity(entity);
+            }
+
         };
+
+        engine.addEntityListener(Family.all(PickupComponent.class).get(), new EntityListener() {
+            @Override
+            public void entityAdded(Entity entity) {
+                LOG.debug("Added entity " + entity);
+            }
+
+            @Override
+            public void entityRemoved(Entity entity) {
+                LOG.debug("Removed entity " + entity);
+            }
+        });
 
         // the order in which we add the systems matter!
         engine.addSystem(new PlayerSystem());
@@ -92,6 +120,7 @@ public class GameScreen implements Screen {
         engine.addSystem(new WorldWrapSystem(viewport));
         engine.addSystem(new BoundsSystem());
         engine.addSystem(new ObstacleSpawnSystem(factory));
+        engine.addSystem(new PickupSpawnSystem(factory));
         engine.addSystem(new CollisionSystem(listener));
         engine.addSystem(new CleanupSystem());
 

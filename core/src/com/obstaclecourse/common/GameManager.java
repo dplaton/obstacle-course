@@ -58,6 +58,10 @@ public class GameManager {
         return lives;
     }
 
+    public void incrementLives() {
+        lives++;
+    }
+
     public int getScore() {
         return score;
     }

@@ -3,6 +3,7 @@ package com.obstaclecourse.common;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.obstaclecourse.component.BoundsComponent;
 import com.obstaclecourse.component.DimensionComponent;
+import com.obstaclecourse.component.PickupComponent;
 import com.obstaclecourse.component.MovementComponent;
 import com.obstaclecourse.component.ObstacleComponent;
 import com.obstaclecourse.component.PositionComponent;
@@ -25,4 +26,6 @@ public class Mappers {
     public static final ComponentMapper<TextureComponent> TEXTURE_MAPPER = ComponentMapper.getFor(TextureComponent.class);
 
     public static final ComponentMapper<DimensionComponent> DIMENSION_MAPPER = ComponentMapper.getFor(DimensionComponent.class);
+
+    public static final ComponentMapper<PickupComponent> PICKUP_MAPPER = ComponentMapper.getFor(PickupComponent.class);
 }

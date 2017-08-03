@@ -8,10 +8,9 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.Logger;
 import com.obstaclecourse.common.Mappers;
 import com.obstaclecourse.component.BoundsComponent;
+import com.obstaclecourse.component.PickupComponent;
 import com.obstaclecourse.component.ObstacleComponent;
 import com.obstaclecourse.component.PlayerComponent;
-import com.obstaclecourse.entity.Obstacle;
-import com.obstaclecourse.entity.Player;
 
 /**
  * Created by platon on 26/07/2017.
@@ -32,6 +31,8 @@ public class CollisionSystem extends EntitySystem {
             ObstacleComponent.class,
             BoundsComponent.class).get();
 
+    private static final Family COLLECTIBLE_FAMILY = Family.all(PickupComponent.class).get();
+
     private final CollisionListener listener;
 
     public CollisionSystem(CollisionListener listener) {
@@ -44,6 +45,7 @@ public class CollisionSystem extends EntitySystem {
         // we only have one player, tho
         ImmutableArray<Entity> players = getEngine().getEntitiesFor(PLAYER_FAMILY);
         ImmutableArray<Entity> obstacles = getEngine().getEntitiesFor(OBSTACLE_FAMILY);
+        ImmutableArray<Entity> collectibles = getEngine().getEntitiesFor(COLLECTIBLE_FAMILY);
 
         for(Entity playerEntity: players) {
             for(Entity obstacleEntity: obstacles) {
@@ -57,6 +59,19 @@ public class CollisionSystem extends EntitySystem {
                     LOG.debug("Collision detected!");
                     listener.hitObstacle();
                 }
+            }
+
+            for (Entity collectible: collectibles) {
+                PickupComponent lifeComponent = Mappers.PICKUP_MAPPER.get(collectible);
+                if (lifeComponent.isCollected()) {
+                    continue;
+                }
+                if (checkCollision(playerEntity, collectible)) {
+                    LOG.debug("Collected life");
+                    lifeComponent.collect();
+                    listener.collect(collectible);
+                }
+
             }
         }
     }

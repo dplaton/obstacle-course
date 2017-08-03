@@ -2,7 +2,6 @@ package com.obstaclecourse.common;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.obstaclecourse.assets.AssetDescriptors;
@@ -10,16 +9,16 @@ import com.obstaclecourse.assets.RegionNames;
 import com.obstaclecourse.component.BoundsComponent;
 import com.obstaclecourse.component.CleanupComponent;
 import com.obstaclecourse.component.DimensionComponent;
+import com.obstaclecourse.component.PickupComponent;
 import com.obstaclecourse.component.MovementComponent;
 import com.obstaclecourse.component.ObstacleComponent;
+import com.obstaclecourse.component.PickupType;
 import com.obstaclecourse.component.PlayerComponent;
 import com.obstaclecourse.component.PositionComponent;
 import com.obstaclecourse.component.TextureComponent;
 import com.obstaclecourse.component.WorldWrapComponent;
 import com.obstaclecourse.config.GameConfig;
-import com.obstaclecourse.entity.Obstacle;
-import com.obstaclecourse.entity.Player;
-import com.sun.corba.se.impl.orbutil.threadpool.TimeoutException;
+
 
 /**
  * Created by platon on 21/07/2017.
@@ -100,6 +99,7 @@ public class EntityFactory {
         DimensionComponent dimensionComponent = engine.createComponent(DimensionComponent.class);
         dimensionComponent.height = GameConfig.OBSTACLE_SIZE;
         dimensionComponent.width = GameConfig.OBSTACLE_SIZE;
+
         Entity obstacle = engine.createEntity();
         obstacle.add(bounds);
         obstacle.add(movement);
@@ -128,6 +128,43 @@ public class EntityFactory {
         entity.add(texture);
         entity.add(position);
         entity.add(dimension);
+
+        engine.addEntity(entity);
+    }
+
+    public void addCollectible(float x, float y, PickupType type) {
+        TextureComponent texture = engine.createComponent(TextureComponent.class);
+        texture.textureRegion = gameAtlas.findRegion(RegionNames.TR_PLAYER);
+
+        PositionComponent position = engine.createComponent(PositionComponent.class);
+        position.x = x;
+        position.y = y;
+
+        BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
+        bounds.bounds.x = x;
+        bounds.bounds.y = y;
+        bounds.bounds.setRadius(GameConfig.PLAYER_BOUNDS_RADIUS);
+
+        MovementComponent movement = engine.createComponent(MovementComponent.class);
+        movement.xSpeed = -GameManager.getInstance().getDifficultyLevel().getObstacleSpeed();
+
+        DimensionComponent dimension = engine.createComponent(DimensionComponent.class);
+        dimension.height = GameConfig.PLAYER_SIZE;
+        dimension.width = GameConfig.PLAYER_SIZE;
+
+        CleanupComponent cleanupComponent = engine.createComponent(CleanupComponent.class);
+        PickupComponent marker = engine.createComponent(PickupComponent.class);
+        marker.pickupType = type;
+
+        Entity entity = engine.createEntity();
+
+        entity.add(bounds);
+        entity.add(movement);
+        entity.add(position);
+        entity.add(cleanupComponent);
+        entity.add(dimension);
+        entity.add(texture);
+        entity.add(marker);
 
         engine.addEntity(entity);
     }
