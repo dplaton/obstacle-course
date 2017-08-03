@@ -14,6 +14,10 @@ public class AssetPaths {
 
     public static final String PICKUP_SOUND = "sounds/pickup.wav";
 
+    public static final String HIT_SOUND = "sounds/obstacle_hit.wav";
+
+    public static final String LIFE_SOUND = "sounds/life_collected.wav";
+
     private AssetPaths() {
     }
 }

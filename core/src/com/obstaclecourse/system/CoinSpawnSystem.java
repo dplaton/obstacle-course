@@ -2,23 +2,20 @@ package com.obstaclecourse.system;
 
 import com.badlogic.ashley.systems.IntervalSystem;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Logger;
 import com.obstaclecourse.common.EntityFactory;
 import com.obstaclecourse.component.PickupType;
 import com.obstaclecourse.config.GameConfig;
 
 /**
- * Created by platon on 30/07/2017.
+ * Created by platon on 03/08/2017.
  */
 
-public class PickupSpawnSystem extends IntervalSystem {
-
-    private static final Logger LOG = new Logger(PickupSpawnSystem.class.getName(), Logger.DEBUG);
+public class CoinSpawnSystem extends IntervalSystem {
 
     private final EntityFactory factory;
 
-    public PickupSpawnSystem(EntityFactory factory) {
-        super(GameConfig.LIFE_SPAWN_TIME);
+    public CoinSpawnSystem(EntityFactory factory) {
+        super(GameConfig.COIN_SPAWN_TIME);
         this.factory = factory;
     }
 
@@ -29,7 +26,6 @@ public class PickupSpawnSystem extends IntervalSystem {
 
         float lifeY = MathUtils.random(min, max);
         float lifeX = GameConfig.WORLD_WIDTH;
-        LOG.debug("Spawning new pickup object");
-        factory.addCollectible(lifeX, lifeY, PickupType.LIFE);
+        factory.addCollectible(lifeX, lifeY, PickupType.COIN);
     }
 }

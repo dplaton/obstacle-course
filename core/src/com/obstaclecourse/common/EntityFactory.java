@@ -134,7 +134,12 @@ public class EntityFactory {
 
     public void addCollectible(float x, float y, PickupType type) {
         TextureComponent texture = engine.createComponent(TextureComponent.class);
-        texture.textureRegion = gameAtlas.findRegion(RegionNames.TR_PLAYER);
+        switch (type) {
+            case LIFE:texture.textureRegion = gameAtlas.findRegion(RegionNames.TR_PLAYER);
+                break;
+            case COIN:texture.textureRegion = gameAtlas.findRegion(RegionNames.TR_COIN);
+                break;
+        }
 
         PositionComponent position = engine.createComponent(PositionComponent.class);
         position.x = x;

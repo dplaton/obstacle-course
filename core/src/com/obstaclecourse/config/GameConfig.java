@@ -32,9 +32,10 @@ public class GameConfig {
 
     public static final float PLAYER_BOUNDS_RADIUS = 0.4f;
     public static final float PLAYER_SIZE = 2 * PLAYER_BOUNDS_RADIUS;
-    public static final int COLLECTABLE_VALUE = 10 ;
+    public static final int COLLECTABLE_VALUE = 10;
 
     public static final float LIFE_SPAWN_TIME = 5f;
+    public static final float COIN_SPAWN_TIME = 3f;
 
     private GameConfig() {
 

@@ -66,6 +66,10 @@ public class GameManager {
         return score;
     }
 
+    public void incrementScore(int amount) {
+        score+=amount;
+    }
+
     public void decrementLives() {
         this.lives--;
     }

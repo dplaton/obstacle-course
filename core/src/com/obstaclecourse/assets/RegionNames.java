@@ -10,6 +10,7 @@ public class RegionNames {
     public static final String TR_PLAYER = "player";
     public static final String TR_OBSTACLE = "obstacle";
     public static final String TR_BACKGROUND = "background";
+    public static final String TR_COIN = "coin";
 
     /* UI Atlas */
     public static final String BACK="back";
