@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
@@ -113,18 +112,6 @@ public class GameScreen implements Screen {
             }
 
         };
-
-        engine.addEntityListener(Family.all(PickupComponent.class).get(), new EntityListener() {
-            @Override
-            public void entityAdded(Entity entity) {
-                LOG.debug("Added entity " + entity);
-            }
-
-            @Override
-            public void entityRemoved(Entity entity) {
-                LOG.debug("Removed entity " + entity);
-            }
-        });
 
         // the order in which we add the systems matter!
         engine.addSystem(new PlayerSystem());

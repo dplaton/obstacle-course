@@ -67,7 +67,6 @@ public class CollisionSystem extends EntitySystem {
                     continue;
                 }
                 if (checkCollision(playerEntity, collectible)) {
-                    LOG.debug("Collected something");
                     lifeComponent.collect();
                     listener.collect(collectible);
                 }
