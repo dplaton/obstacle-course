@@ -1,9 +1,9 @@
 apply plugin: "java"
 
-sourceCompatibility = 1.6
+sourceCompatibility = 1.7
 sourceSets.main.java.srcDirs = [ "src/" ]
 
-project.ext.mainClassName = "DesktopLauncher"
+project.ext.mainClassName = "com.obstaclecourse.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets");
 
 task run(dependsOn: classes, type: JavaExec) {
@@ -32,6 +32,9 @@ task dist(type: Jar) {
     manifest {
         attributes 'Main-Class': project.mainClassName
     }
+
+    destinationDir = file("$rootDir/dist")
+    archiveName = rootProject.name + "-" + rootProject.version + "." + extension
 }
 
 dist.dependsOn classes
