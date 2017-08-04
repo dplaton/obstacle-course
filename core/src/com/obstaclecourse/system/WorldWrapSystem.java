@@ -12,7 +12,7 @@ import com.obstaclecourse.component.WorldWrapComponent;
 import com.obstaclecourse.config.GameConfig;
 
 /**
- * Created by platon on 24/07/2017.
+ * Handles the collision with the world bounds, preventing entities which have a {@link WorldWrapComponent} attached to them from leaving the world.
  */
 
 public class WorldWrapSystem extends IteratingSystem {

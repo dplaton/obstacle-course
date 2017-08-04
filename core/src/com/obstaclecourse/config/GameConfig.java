@@ -1,7 +1,7 @@
 package com.obstaclecourse.config;
 
 /**
- * Created by platon on 04/07/2017.
+ * Holds the game parameters configuration
  */
 public class GameConfig {
 

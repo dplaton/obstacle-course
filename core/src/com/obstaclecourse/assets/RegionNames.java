@@ -1,7 +1,7 @@
 package com.obstaclecourse.assets;
 
 /**
- * Created by platon on 17/07/2017.
+ * The name of the texture regions as they appear in their containers (texture atlases, skins etc)
  */
 
 public class RegionNames {

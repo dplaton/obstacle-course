@@ -18,7 +18,7 @@ import com.obstaclecourse.config.GameConfig;
 import com.obstaclecourse.util.GdxUtils;
 
 /**
- * Created by platon on 18/07/2017.
+ * A base class for the screens which need to show a menu (the main menu screen, the options screen)
  */
 
 public abstract class MenuScreenBase extends ScreenAdapter {

@@ -19,7 +19,7 @@ import com.obstaclecourse.common.GameManager;
 import com.obstaclecourse.config.DifficultyLevel;
 
 /**
- * Created by platon on 18/07/2017.
+ * A screen that shows the game options.
  */
 
 public class OptionsScreen extends MenuScreenBase {

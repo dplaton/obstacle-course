@@ -3,7 +3,7 @@ package com.obstaclecourse.component;
 import com.badlogic.ashley.core.Component;
 
 /**
- * Created by platon on 24/07/2017.
+ * A marker component indicating that the entity doesn't leave the "world bounds"
  */
 
 public class WorldWrapComponent implements Component {

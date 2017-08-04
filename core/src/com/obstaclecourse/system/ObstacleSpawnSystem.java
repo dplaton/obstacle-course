@@ -6,7 +6,7 @@ import com.obstaclecourse.common.EntityFactory;
 import com.obstaclecourse.config.GameConfig;
 
 /**
- * Created by platon on 24/07/2017.
+ * Handles the spawning of the obstacles in the game
  */
 
 public class ObstacleSpawnSystem extends IntervalSystem {

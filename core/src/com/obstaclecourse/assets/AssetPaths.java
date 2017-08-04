@@ -1,7 +1,7 @@
 package com.obstaclecourse.assets;
 
 /**
- * Created by platon on 14/07/2017.
+ * The paths to the assets
  */
 
 public class AssetPaths {

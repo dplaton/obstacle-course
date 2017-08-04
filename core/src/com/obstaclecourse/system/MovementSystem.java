@@ -9,7 +9,7 @@ import com.obstaclecourse.component.MovementComponent;
 import com.obstaclecourse.component.PositionComponent;
 
 /**
- * Created by platon on 24/07/2017.
+ * Handles the movement of the entities in the game.
  */
 
 public class MovementSystem extends IteratingSystem {

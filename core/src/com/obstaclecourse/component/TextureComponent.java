@@ -4,9 +4,12 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
- * Created by platon on 28/07/2017.
+ * The component which adds texture to the entities
  */
 
 public class TextureComponent implements Component {
+    /**
+     * The {@link TextureRegion} defining the texture
+     */
     public TextureRegion textureRegion;
 }

@@ -6,7 +6,7 @@ import com.obstaclecourse.common.GameManager;
 import com.obstaclecourse.config.GameConfig;
 
 /**
- * Created by platon on 28/07/2017.
+ * Handles the random score update.
  */
 
 public class ScoreSystem extends IntervalSystem {

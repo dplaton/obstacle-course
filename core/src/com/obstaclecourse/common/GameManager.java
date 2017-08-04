@@ -7,7 +7,7 @@ import com.obstaclecourse.config.DifficultyLevel;
 import com.obstaclecourse.config.GameConfig;
 
 /**
- * Created by platon on 18/07/2017.
+ * Singleton object which manages the game state
  */
 
 public class GameManager {
@@ -31,10 +31,17 @@ public class GameManager {
         difficultyLevel = DifficultyLevel.valueOf(difficultyName);
     }
 
+    /**
+     * Retrieves the high score of the game
+     * @return an int value
+     */
     public String getHighScore() {
         return String.valueOf(highScore);
     }
 
+    /**
+     * Updates the high score with the current score, if it's greater than the high score
+     */
     public void updateHighScore() {
         if (this.score > this.highScore) {
             this.highScore = this.score;
@@ -43,10 +50,18 @@ public class GameManager {
         }
     }
 
+    /**
+     * Returns the difficulty level set in the game
+     * @return the level, as a value from {@link DifficultyLevel}
+     */
     public DifficultyLevel getDifficultyLevel() {
         return difficultyLevel;
     }
 
+    /**
+     * Updates the difficulty level with a new value
+     * @param difficultyLevel the new {@link DifficultyLevel}
+     */
     public void updateDifficulty(DifficultyLevel difficultyLevel) {
         if (difficultyLevel != this.difficultyLevel) {
             PREFS.putString(DIFFICULTY_KEY, difficultyLevel.name());
@@ -54,39 +69,64 @@ public class GameManager {
         }
     }
 
+    /**
+     * Returns the number of "lives" that the player has left
+     * @return an integer value
+     */
     public int getLives() {
         return lives;
     }
 
+    /**
+     * Increments the number of lives by one unit
+     */
     public void incrementLives() {
         lives++;
     }
 
+    /**
+     * Returns the current score of the game
+     * @return and integer value
+     */
     public int getScore() {
         return score;
     }
 
-    public void incrementScore(int amount) {
-        score+=amount;
-    }
-
+    /**
+     * Decrements the number of lives
+     */
     public void decrementLives() {
         this.lives--;
     }
 
+    /**
+     * Checks if the game is over (i.e. the number of lives is 0)
+     * @return {@code true} if the number of lives is 0, {@code false} otherwise
+     */
     public boolean isGameOver() {
         return lives <= 0;
     }
 
+    /**
+     * Resets the game state.
+     * This operation involves settings the lives to {@link GameConfig#LIVES_START} and the score to 0
+     */
     public void reset() {
         this.score = 0;
         this.lives = GameConfig.LIVES_START;
     }
-
+    /**
+     * Updates the score by the amount of the specified amount
+     * @param amount the amount by which to increment the score
+     */
     public void updateScore(int amount) {
         score += amount;
     }
 
+    /**
+     * Returns the instance of this object
+     * @return the instance of {@link GameManager}
+     */
     public static GameManager getInstance() {
         return INSTANCE;
     }

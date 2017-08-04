@@ -13,7 +13,7 @@ import com.obstaclecourse.component.PlayerComponent;
 import com.obstaclecourse.config.GameConfig;
 
 /**
- * Created by platon on 21/07/2017.
+ * Handles the player reactions to key presses
  */
 
 public class PlayerSystem extends IteratingSystem {
@@ -40,6 +40,5 @@ public class PlayerSystem extends IteratingSystem {
             movement.ySpeed = -GameConfig.MAX_PLAYER_Y_SPEED;
         }
 
-        BoundsComponent bounds = Mappers.BOUNDS_MAPPER.get(entity);
     }
 }

@@ -1,16 +1,16 @@
 package com.obstaclecourse.system;
 
 import com.obstaclecourse.common.EntityFactory;
-import com.obstaclecourse.component.PickupType;
+import com.obstaclecourse.component.CollectibleType;
 import com.obstaclecourse.config.GameConfig;
 
 /**
- * Created by platon on 03/08/2017.
+ * Handles the spawning of the "Coin" collectibles.
  */
 
 public class CoinSpawnSystem extends CollectibleSpawnSystem {
 
     public CoinSpawnSystem(EntityFactory factory) {
-        super(factory, PickupType.COIN, GameConfig.COIN_SPAWN_TIME);
+        super(factory, CollectibleType.COIN, GameConfig.COIN_SPAWN_TIME);
     }
 }

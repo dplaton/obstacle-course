@@ -15,7 +15,7 @@ import com.obstaclecourse.assets.RegionNames;
 import com.obstaclecourse.common.GameManager;
 
 /**
- * Created by platon on 18/07/2017.
+ * The screen which shows the high scores
  */
 
 public class HighscoreScreen extends MenuScreenBase {

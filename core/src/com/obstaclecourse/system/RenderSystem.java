@@ -13,7 +13,7 @@ import com.obstaclecourse.component.PositionComponent;
 import com.obstaclecourse.component.TextureComponent;
 
 /**
- * Created by platon on 28/07/2017.
+ * Handles the rendering of the entities in the game engine.
  */
 
 public class RenderSystem extends EntitySystem {

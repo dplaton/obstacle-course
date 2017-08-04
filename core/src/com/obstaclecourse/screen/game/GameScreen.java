@@ -1,8 +1,6 @@
 package com.obstaclecourse.screen.game;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntityListener;
-import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
@@ -40,7 +38,7 @@ import com.obstaclecourse.system.debug.GridRenderSystem;
 import com.obstaclecourse.util.GdxUtils;
 
 /**
- * Created by platon on 14/07/2017.
+ * The screen in which the game runs. It is responsible for creating the game world, i.e. creating the game engine and adding sysstems to it, creating the entities, handling the game state.
  */
 public class GameScreen implements Screen {
 
@@ -100,12 +98,12 @@ public class GameScreen implements Screen {
             @Override
             public void collect(Entity entity) {
                 PickupComponent pickup = entity.getComponent(PickupComponent.class);
-                LOG.debug("Collected a " + pickup.pickupType);
-                if (pickup.pickupType.isLife()) {
+                LOG.debug("Collected a " + pickup.collectibleType);
+                if (pickup.collectibleType.isLife()) {
                     lifeCollected.play();
                     GameManager.getInstance().incrementLives();
-                } else if (pickup.pickupType.isCoin()) {
-                    GameManager.getInstance().incrementScore(GameConfig.COLLECTABLE_VALUE);
+                } else if (pickup.collectibleType.isCoin()) {
+                    GameManager.getInstance().updateScore(GameConfig.COLLECTABLE_VALUE);
                     coinCollected.play();
                 }
                 engine.removeEntity(entity);

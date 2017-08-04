@@ -3,7 +3,7 @@ package com.obstaclecourse.system.collision;
 import com.badlogic.ashley.core.Entity;
 
 /**
- * Created by platon on 27/07/2017.
+ * Listens to collision events emitted by the {@link CollisionSystem}
  */
 
 public interface CollisionListener {

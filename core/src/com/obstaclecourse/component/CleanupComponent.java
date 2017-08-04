@@ -3,7 +3,8 @@ package com.obstaclecourse.component;
 import com.badlogic.ashley.core.Component;
 
 /**
- * Created by platon on 25/07/2017.
+ * A marker component attached to entities which are meant to be picked up by the cleanup system.
+ * Examples: obstacles, collectibles
  */
 
 public class CleanupComponent implements Component {

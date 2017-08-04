@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /**
- * Created by platon on 16/07/2017.
+ * The {@link AssetDescriptor} objects used to retrieved the assets from the Asset Manager
  */
 
 public class AssetDescriptors {

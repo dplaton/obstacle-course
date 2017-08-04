@@ -12,7 +12,7 @@ import com.obstaclecourse.component.DimensionComponent;
 import com.obstaclecourse.component.PickupComponent;
 import com.obstaclecourse.component.MovementComponent;
 import com.obstaclecourse.component.ObstacleComponent;
-import com.obstaclecourse.component.PickupType;
+import com.obstaclecourse.component.CollectibleType;
 import com.obstaclecourse.component.PlayerComponent;
 import com.obstaclecourse.component.PositionComponent;
 import com.obstaclecourse.component.TextureComponent;
@@ -21,21 +21,22 @@ import com.obstaclecourse.config.GameConfig;
 
 
 /**
- * Created by platon on 21/07/2017.
+ * Creates entities and adds them to the Game Engine
  */
 
 public class EntityFactory {
 
     private final PooledEngine engine;
-    private final AssetManager assetManager;
     private final TextureAtlas gameAtlas;
 
     public EntityFactory(PooledEngine engine, AssetManager assetManager) {
         this.engine = engine;
-        this.assetManager = assetManager;
         gameAtlas = assetManager.get(AssetDescriptors.GAMEPLAY_ASSET_DESCRIPTOR);
     }
 
+    /**
+     * Creates a new {@link Entity} object representing the player and adds it to the game engine.
+     */
     public void addPlayer() {
         float y = (GameConfig.WORLD_HEIGHT - GameConfig.PLAYER_SIZE) / 2;
         float x = GameConfig.PLAYER_SIZE;
@@ -75,6 +76,11 @@ public class EntityFactory {
         engine.addEntity(entity);
     }
 
+    /**
+     * Creates a new {@link Entity} object representing an obstacle and adds it to the game engine.
+     * @param x the X coordinate where to place the object.
+     * @param y the Y coordinate where to place the object
+     */
     public void addObstacle(float x, float y) {
         BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
         bounds.bounds.x = x;
@@ -112,6 +118,9 @@ public class EntityFactory {
         engine.addEntity(obstacle);
     }
 
+    /**
+     * Creates a new {@link Entity} representing the background and adds it to the game engine
+     */
     public void addBackground() {
         TextureComponent texture = engine.createComponent(TextureComponent.class);
         texture.textureRegion = gameAtlas.findRegion(RegionNames.TR_BACKGROUND);
@@ -132,7 +141,13 @@ public class EntityFactory {
         engine.addEntity(entity);
     }
 
-    public void addCollectible(float x, float y, PickupType type) {
+    /**
+     * Creates a new {@link Entity} representing a collectible and adds it to the game engine
+     * @param x the X coordinate where to place the object
+     * @param y the Y coordinate where to place the object
+     * @param type the type of the collectible, as a {@link CollectibleType} value
+     */
+    public void addCollectible(float x, float y, CollectibleType type) {
         TextureComponent texture = engine.createComponent(TextureComponent.class);
         switch (type) {
             case LIFE:texture.textureRegion = gameAtlas.findRegion(RegionNames.TR_PLAYER);
@@ -159,7 +174,7 @@ public class EntityFactory {
 
         CleanupComponent cleanupComponent = engine.createComponent(CleanupComponent.class);
         PickupComponent marker = engine.createComponent(PickupComponent.class);
-        marker.pickupType = type;
+        marker.collectibleType = type;
 
         Entity entity = engine.createEntity();
 

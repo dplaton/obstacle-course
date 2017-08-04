@@ -11,7 +11,7 @@ import com.obstaclecourse.common.GameManager;
 import com.obstaclecourse.config.GameConfig;
 
 /**
- * Created by platon on 26/07/2017.
+ * Handles the rendering of the HUD
  */
 
 public class HudRenderSystem extends EntitySystem {

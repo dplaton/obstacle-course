@@ -4,11 +4,11 @@ import com.badlogic.ashley.systems.IntervalSystem;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Logger;
 import com.obstaclecourse.common.EntityFactory;
-import com.obstaclecourse.component.PickupType;
+import com.obstaclecourse.component.CollectibleType;
 import com.obstaclecourse.config.GameConfig;
 
 /**
- * Created by platon on 30/07/2017.
+ * Handles the spawning of the collectibles in the game.
  */
 
 public class CollectibleSpawnSystem extends IntervalSystem {
@@ -16,9 +16,9 @@ public class CollectibleSpawnSystem extends IntervalSystem {
     private static final Logger LOG = new Logger(CollectibleSpawnSystem.class.getName(), Logger.DEBUG);
 
     private final EntityFactory factory;
-    private final PickupType collectibleType;
+    private final CollectibleType collectibleType;
 
-    protected CollectibleSpawnSystem(EntityFactory factory, PickupType type, float interval) {
+    protected CollectibleSpawnSystem(EntityFactory factory, CollectibleType type, float interval) {
         super(interval);
         this.collectibleType = type;
         this.factory = factory;

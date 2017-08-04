@@ -9,7 +9,7 @@ import com.obstaclecourse.component.PositionComponent;
 import com.obstaclecourse.config.GameConfig;
 
 /**
- * Created by platon on 25/07/2017.
+ * Cleans up entities which are not needed anymore - obstacles and collectibles which passed the player's position
  */
 
 public class CleanupSystem extends IteratingSystem {

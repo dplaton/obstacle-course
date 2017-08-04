@@ -1,16 +1,21 @@
 package com.obstaclecourse.config;
 
 /**
- * Created by platon on 14/07/2017.
+ * The difficulty level of the game
  */
 
 public enum DifficultyLevel {
+
     EASY(GameConfig.EASY_OBSTACLE_SPEED),
     MEDIUM(GameConfig.MEDIUM_OBSTACLE_SPEED),
     HARD(GameConfig.HARD_OBSTACLE_SPEED);
 
     public final float obstacleSpeed;
 
+    /**
+     * Constructs a new entry in the enum
+     * @param obstacleSpeed the obstacle speed corresponding to this difficulty level
+     */
     DifficultyLevel(float obstacleSpeed) {
         this.obstacleSpeed = obstacleSpeed;
     }

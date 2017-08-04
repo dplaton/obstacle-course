@@ -22,7 +22,7 @@ public class ObstacleCourseGame extends Game {
     public void create() {
 
         assetManager = new AssetManager();
-        Gdx.app.setLogLevel(Application.LOG_DEBUG);
+        Gdx.app.setLogLevel(Application.LOG_INFO);
         batch = new SpriteBatch();
         setScreen(new LoadingScreen(this));
     }

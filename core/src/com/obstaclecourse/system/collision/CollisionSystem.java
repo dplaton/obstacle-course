@@ -13,7 +13,7 @@ import com.obstaclecourse.component.ObstacleComponent;
 import com.obstaclecourse.component.PlayerComponent;
 
 /**
- * Created by platon on 26/07/2017.
+ * Deals with the collisions in the game.
  */
 
 public class CollisionSystem extends EntitySystem {

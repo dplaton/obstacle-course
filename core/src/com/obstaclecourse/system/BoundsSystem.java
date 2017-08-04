@@ -9,7 +9,7 @@ import com.obstaclecourse.component.DimensionComponent;
 import com.obstaclecourse.component.PositionComponent;
 
 /**
- * Created by platon on 24/07/2017.
+ * Updates the bounds of the entity when it moves around the game world.
  */
 
 public class BoundsSystem extends IteratingSystem {

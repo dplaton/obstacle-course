@@ -1,10 +1,11 @@
 package com.obstaclecourse.component;
 
 /**
- * Created by platon on 03/08/2017.
+ * The type of the collectible
  */
 
-public enum PickupType {
+public enum CollectibleType {
+
     LIFE,
     COIN;
 

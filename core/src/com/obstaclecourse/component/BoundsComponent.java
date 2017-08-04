@@ -4,7 +4,8 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Circle;
 
 /**
- * Created by platon on 21/07/2017.
+ * A component containing the bounds of an object.
+ * Usually this component is added to objects which support collisions.
  */
 
 public class BoundsComponent implements Component {

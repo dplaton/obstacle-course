@@ -15,7 +15,7 @@ import com.obstaclecourse.assets.RegionNames;
 import com.obstaclecourse.screen.game.GameScreen;
 
 /**
- * Created by platon on 18/07/2017.
+ * The screen which shows the main menu
  */
 
 public class MenuScreen extends MenuScreenBase {

@@ -13,7 +13,7 @@ import com.obstaclecourse.screen.menu.MenuScreen;
 import com.obstaclecourse.util.GdxUtils;
 
 /**
- * Created by platon on 17/07/2017.
+ * The screen responsible for loading the assets of the game. This screen shows a progress bar while the assets are loading
  */
 
 public class LoadingScreen extends ScreenAdapter {
